@@ -5,161 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Royal Casino Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js" crossorigin="anonymous" onerror="window._peerJsFailed=true"></script>
 <style>
 :root{
   --felt:#1A5C38;--felt-l:#2E7D52;--felt-d:#0D3D25;
   --bg:#0D1B14;--gold:#C9A84C;--gold-l:#E8C96A;--gold-d:#9A7830;
   --card-bg:#FEFDF8;--red:#C0392B;--dark:#1a1a1a;
   --txt:#F0EAD6;--muted:#8FA89A;
-  --chip-sh:0 4px 15px rgba(0,0,0,0.5);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Crimson Text',serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
-
-/* NAV */
-.nav{display:flex;align-items:center;background:#0a0f0c;border-bottom:1px solid rgba(201,168,76,.15);padding:0 1rem;position:sticky;top:0;z-index:100;min-height:52px;gap:0}
-.nav-brand{font-family:'Playfair Display',Georgia,serif;font-size:19px;color:var(--gold);letter-spacing:.06em;margin-right:1.5rem;white-space:nowrap;flex-shrink:0}
-.nav-tabs{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1}
-.nav-tabs::-webkit-scrollbar{display:none}
-.nav-tab{padding:14px 14px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.nav{display:flex;align-items:center;background:#0a0f0c;border-bottom:1px solid rgba(201,168,76,.15);padding:0 1rem;position:sticky;top:0;z-index:100;min-height:52px}
+.nav-brand{font-family:'Playfair Display',serif;font-size:19px;color:var(--gold);margin-right:1.5rem}
+.nav-tabs{display:flex;gap:0;flex:1;overflow-x:auto}
+.nav-tab{padding:14px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
 .nav-tab:hover{color:var(--txt)}
 .nav-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .nav-right{margin-left:auto;padding-left:12px;flex-shrink:0}
-.balance-pill{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--gold);white-space:nowrap;cursor:pointer}
-
-/* PAGES */
-.page{display:none;padding:1.5rem 1rem;max-width:860px;margin:0 auto;animation:fadeIn .25s ease}
+.balance-pill{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--gold);cursor:pointer}
+.page{display:none;padding:1.5rem 1rem;max-width:860px;margin:0 auto}
 .page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-/* TYPOGRAPHY */
-.section-title{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600;color:var(--txt);margin-bottom:.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--txt);margin-bottom:.5rem}
 .section-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
-.label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-
-/* BUTTONS */
-.btn{padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-family:'Playfair Display',serif;font-size:13px;font-weight:500;transition:all .15s;line-height:1.2}
+.btn{padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-family:'Playfair Display',serif;font-size:13px;font-weight:500;transition:all .15s}
 .btn:hover{filter:brightness(1.1)}
-.btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#1a1a1a}
-.btn-outline{background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--txt)}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08)}
-.btn-red{background:linear-gradient(135deg,#c0392b,#7b241c);color:#fff}
 .btn-green{background:linear-gradient(135deg,#27ae60,#145a32);color:#fff}
-.btn-sm{padding:6px 12px;font-size:12px}
+.btn-red{background:linear-gradient(135deg,#c0392b,#7b241c);color:#fff}
+.btn-outline{background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--txt)}
 .btn-lg{padding:12px 28px;font-size:15px}
-
-/* CARDS */
 .game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:2rem}
-.game-card{border-radius:10px;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,.2);transition:transform .2s,border-color .2s,box-shadow .2s;background:#0d1b14}
-.game-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 30px rgba(201,168,76,.15)}
+.game-card{border-radius:10px;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,.2);background:#0d1b14;transition:transform .2s}
+.game-card:hover{transform:translateY(-3px);border-color:var(--gold)}
 .game-card-img{height:110px;display:flex;align-items:center;justify-content:center;font-size:48px}
-.game-card-body{padding:14px 16px}
+.game-card-body{padding:14px}
 .game-card-name{font-size:15px;font-weight:500;color:var(--txt)}
 .game-card-desc{font-size:12px;color:var(--muted);margin-top:3px}
-.badge{display:inline-block;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-top:6px}
-.badge-green{background:rgba(39,174,96,.15);color:#27ae60}
-.badge-gold{background:rgba(201,168,76,.1);color:var(--gold)}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:2rem}
-.stat-card{background:#0d1b14;border-radius:8px;padding:14px;border:1px solid rgba(201,168,76,.15);text-align:center}
-.stat-val{font-size:22px;font-weight:500;color:var(--gold)}
-.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px}
-
-/* FELT TABLE */
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-top:6px;background:rgba(39,174,96,.15);color:#27ae60}
 .felt-wrap{display:flex;justify-content:center;margin:1rem 0}
-.felt{background:linear-gradient(145deg,var(--felt-l) 0%,var(--felt) 40%,var(--felt-d) 100%);border-radius:20px;padding:1.75rem 2rem;border:3px solid var(--felt-d);box-shadow:inset 0 2px 20px rgba(0,0,0,.4),0 0 0 3px #071f14;position:relative;width:100%;max-width:500px}
-
-/* PLAYING CARDS */
-.cards-row{display:flex;gap:7px;justify-content:center;align-items:flex-end;flex-wrap:wrap;min-height:96px}
-.card{width:58px;height:86px;background:#fff;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:5px 6px;box-shadow:0 3px 12px rgba(0,0,0,.3);font-family:'Courier Prime',monospace;position:relative}
+.felt{background:linear-gradient(145deg,var(--felt-l),var(--felt));border-radius:20px;padding:1.75rem 2rem;border:3px solid var(--felt-d);width:100%;max-width:600px;box-shadow:inset 0 2px 20px rgba(0,0,0,.4)}
+.cards-row{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;min-height:96px;align-items:flex-end}
+.card{width:58px;height:86px;background:#fff;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:5px;box-shadow:0 3px 12px rgba(0,0,0,.3);font-family:'Courier Prime',monospace;font-size:11px}
 .card.red{color:#c0392b}
 .card.black{color:#1a1a1a}
-.card .top{align-self:flex-start;line-height:1.15}
-.card .top .r{font-size:14px;display:block}
-.card .top .s{font-size:12px;display:block}
-.card .mid{font-size:24px}
-.card .bot{align-self:flex-end;transform:rotate(180deg);line-height:1.15}
-.card .bot .r{font-size:14px;display:block}
-.card .bot .s{font-size:12px;display:block}
-.card.back{background:#1a3a5c;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0 2px,transparent 2px 8px);position:relative}
-.card.back::after{content:'♦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;color:rgba(255,255,255,.18)}
-.card.ghost{background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.15);box-shadow:none}
-
-/* CHIPS */
-.chip-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.chip{width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:3px dashed rgba(255,255,255,.28);outline:none;transition:all .1s}
+.card.back{background:#1a3a5c}
+.card.ghost{background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.15)}
+.chip{width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:3px dashed rgba(255,255,255,.28);transition:all .1s}
 .chip:hover{transform:scale(1.12)}
-.chip:active{transform:scale(.95)}
-.chip.sel{outline:2px solid var(--gold);transform:scale(1.08)}
-.ch-5{background:radial-gradient(circle at 35% 35%,#e74c3c,#922b21);color:#fff}
-.ch-10{background:radial-gradient(circle at 35% 35%,#3498db,#1a5276);color:#fff}
-.ch-25{background:radial-gradient(circle at 35% 35%,#27ae60,#145a32);color:#fff}
-.ch-100{background:radial-gradient(circle at 35% 35%,#8e44ad,#5b2c6f);color:#fff}
-
-/* BLACKJACK */
-.bj-label{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:6px}
-.bj-score{font-size:18px;font-weight:500;color:#fff;text-align:center;margin-top:6px;min-height:26px}
-.bet-display{background:rgba(0,0,0,.3);border:1px dashed rgba(255,255,255,.2);border-radius:8px;padding:8px 16px;text-align:center;margin:10px auto;font-size:13px;color:rgba(255,255,255,.6)}
-.bet-amt{font-size:20px;font-weight:600;color:var(--gold)}
-.bj-result{font-size:20px;font-weight:600;text-align:center;padding:12px;border-radius:8px;margin:12px 0;display:none}
-.bj-result.win{background:rgba(39,174,96,.15);color:#27ae60;border:1px solid rgba(39,174,96,.3)}
-.bj-result.lose{background:rgba(192,57,43,.2);color:#e74c3c;border:1px solid rgba(192,57,43,.3)}
-.bj-result.push{background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.2)}
-
-/* MULTIPLAYER */
-.mp-section{background:#0d1b14;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
-.mp-section-title{font-size:14px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.room-list{display:flex;flex-direction:column;gap:8px}
-.room-item{background:#0a1610;border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:border-color .2s}
-.room-item:hover{border-color:var(--gold);background:rgba(201,168,76,.05)}
-.room-name{font-size:14px;font-weight:500;color:var(--txt)}
-.room-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.room-code{font-family:'Courier Prime',monospace;background:rgba(201,168,76,.08);color:var(--gold);padding:2px 7px;border-radius:4px;font-size:11px}
-.mp-form-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
-.form-group{margin-bottom:12px}
-.form-lbl{font-size:12px;color:var(--muted);margin-bottom:5px;display:block}
-.form-input{background:#0a1610;border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:8px 12px;color:var(--txt);font-size:13px;font-family:inherit;width:100%}
-.form-input:focus{outline:none;border-color:var(--gold)}
-.form-input::placeholder{color:rgba(255,255,255,.2)}
-.form-select{background:#0a1610;border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:8px 12px;color:var(--txt);font-size:13px;font-family:inherit;cursor:pointer}
-.form-select option{background:#0d1b14;color:var(--txt)}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.dot-on{background:#27ae60}
-.dot-off{background:#555}
-.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:8px;line-height:1.5}
-.alert-info{background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3);color:#5dade2}
-.alert-ok{background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);color:#27ae60}
-.alert-err{background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);color:#e74c3c}
-
-/* HUB PROFILE */
+.chip-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin:10px 0}
+.ch-5{background:radial-gradient(circle,#e74c3c,#922b21);color:#fff}
+.ch-10{background:radial-gradient(circle,#3498db,#1a5276);color:#fff}
+.ch-25{background:radial-gradient(circle,#27ae60,#145a32);color:#fff}
+.ch-100{background:radial-gradient(circle,#8e44ad,#5b2c6f);color:#fff}
+.bj-label{font-size:11px;color:rgba(255,255,255,.35);text-align:center;margin-bottom:6px;text-transform:uppercase}
+.bj-score{font-size:18px;font-weight:500;color:#fff;text-align:center;margin-top:6px}
+.bj-result{font-size:18px;font-weight:600;text-align:center;padding:12px;border-radius:8px;margin:12px 0;display:none}
+.bj-result.win{background:rgba(39,174,96,.15);color:#27ae60}
+.bj-result.lose{background:rgba(192,57,43,.2);color:#e74c3c}
+.bj-result.push{background:rgba(201,168,76,.1);color:var(--gold)}
 .profile-bar{background:#0d1b14;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:1.5rem}
-.profile-avatar{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#1a1a1a;flex-shrink:0}
+.profile-avatar{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#1a1a1a}
 .profile-name{font-size:16px;font-weight:500;color:var(--txt)}
-.profile-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.profile-edit{margin-left:auto;background:none;border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:5px 12px;color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit}
-.profile-edit:hover{border-color:var(--gold);color:var(--gold)}
-
-/* DIVIDER */
-hr.div{border:none;border-top:1px solid rgba(201,168,76,.15);margin:1.5rem 0}
-
-/* TOAST */
-#toastBox{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;gap:8px}
-.toast{padding:10px 18px;border-radius:8px;font-size:13px;transform:translateX(120%);transition:transform .3s;max-width:280px;box-shadow:0 4px 20px rgba(0,0,0,.5)}
-.toast.show{transform:none}
-.toast-info{background:#0d1b14;border:1px solid rgba(201,168,76,.2);color:var(--txt)}
-.toast-ok{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3);color:#27ae60}
-.toast-err{background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.3);color:#e74c3c}
-
-/* MISC UTILS */
+.stat-card{background:#0d1b14;border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:14px;text-align:center}
+.stat-val{font-size:22px;font-weight:500;color:var(--gold)}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:2rem}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.mt1{margin-top:.5rem}.mt2{margin-top:1rem}.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}
-.text-gold{color:var(--gold)}.text-m{color:var(--muted)}.text-green{color:#27ae60}.text-red{color:#e74c3c}
+.mt1{margin-top:.5rem}
+.mt2{margin-top:1rem}
 .center{text-align:center}
+canvas{display:block;margin:0 auto;max-width:300px}
 </style>
 </head>
 <body>
@@ -169,22 +85,22 @@ hr.div{border:none;border-top:1px solid rgba(201,168,76,.15);margin:1.5rem 0}
   <div class="nav-tabs">
     <button class="nav-tab active" data-page="hub" onclick="nav('hub')">Lobby</button>
     <button class="nav-tab" data-page="bj" onclick="nav('bj')">Blackjack</button>
-    <button class="nav-tab" data-page="mp" onclick="nav('mp')">Multiplayer</button>
+    <button class="nav-tab" data-page="poker" onclick="nav('poker')">Poker</button>
+    <button class="nav-tab" data-page="roulette" onclick="nav('roulette')">Roulette</button>
   </div>
   <div class="nav-right">
     <span class="balance-pill" id="navBal" onclick="nav('hub')">CHF 250</span>
   </div>
 </nav>
 
-<!-- ========== HUB ========== -->
 <div id="page-hub" class="page active">
   <div class="profile-bar">
     <div class="profile-avatar" id="hubAvatar">?</div>
     <div>
       <div class="profile-name" id="hubName">Spieler</div>
-      <div class="profile-sub">Guthaben: <span class="text-gold" id="hubBal">250</span> CHF</div>
+      <div>Guthaben: <span style="color:var(--gold)" id="hubBal">250</span> CHF</div>
     </div>
-    <button class="profile-edit" onclick="editName()">✏ Name</button>
+    <button class="btn btn-outline" onclick="editName()">✏ Name</button>
   </div>
   <div class="stats-row" id="hubStats"></div>
   <p class="section-title">Spiele</p>
@@ -193,166 +109,120 @@ hr.div{border:none;border-top:1px solid rgba(201,168,76,.15);margin:1.5rem 0}
       <div class="game-card-img" style="background:#094a31">🃏</div>
       <div class="game-card-body">
         <div class="game-card-name">Blackjack</div>
-        <div class="game-card-desc">1–6 Spieler</div>
-        <span class="badge badge-green">Spielen</span>
+        <div class="game-card-desc">1–4 Spieler</div>
+        <span class="badge">Spielen</span>
       </div>
     </div>
-    <div class="game-card" onclick="nav('mp')">
-      <div class="game-card-img" style="background:#1a0a00">🌐</div>
+    <div class="game-card" onclick="nav('poker')">
+      <div class="game-card-img" style="background:#0c2a52">♠</div>
       <div class="game-card-body">
-        <div class="game-card-name">Multiplayer</div>
-        <div class="game-card-desc">Mit Freunden spielen</div>
-        <span class="badge badge-gold">Räume</span>
+        <div class="game-card-name">Texas Hold'em</div>
+        <div class="game-card-desc">vs KI-Gegner</div>
+        <span class="badge">Spielen</span>
       </div>
     </div>
-  </div>
-  <hr class="div">
-  <p class="section-title" style="font-size:18px">Schnell-Einstieg</p>
-  <div class="row mt1">
-    <button class="btn btn-gold" onclick="nav('bj')">Blackjack spielen</button>
-    <button class="btn btn-outline" onclick="nav('mp')">Multiplayer</button>
+    <div class="game-card" onclick="nav('roulette')">
+      <div class="game-card-img" style="background:#1a0a2e">🎡</div>
+      <div class="game-card-body">
+        <div class="game-card-name">Roulette</div>
+        <div class="game-card-desc">37 Felder</div>
+        <span class="badge">Spielen</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ========== BLACKJACK ========== -->
 <div id="page-bj" class="page">
   <p class="section-title">Blackjack Solo</p>
-  <div class="felt-wrap"><div class="felt" style="max-width:500px">
+  <div class="felt-wrap"><div class="felt">
     <div class="bj-label">Dealer</div>
     <div class="cards-row" id="bjDealer"></div>
     <div class="bj-score" id="bjDScore"></div>
-    <div class="bet-display">Einsatz: <span class="bet-amt" id="bjBetAmt">0</span> CHF</div>
+    <div style="margin:10px 0;text-align:center">Einsatz: <span style="color:var(--gold);font-weight:bold" id="bjBet">0</span> CHF</div>
     <div class="bj-score" id="bjPScore"></div>
     <div class="cards-row" id="bjPlayer"></div>
     <div class="bj-label" style="margin-top:8px">Du</div>
   </div></div>
   <div class="bj-result" id="bjResult"></div>
-  <div id="bjControls" style="text-align:center;padding:10px 0"></div>
+  <div id="bjControls" class="center mt1"></div>
 </div>
 
-<!-- ========== MULTIPLAYER ========== -->
-<div id="page-mp" class="page">
-  <p class="section-title">Multiplayer</p>
-  <p class="section-sub">Spiele mit Freunden. Räume werden automatisch erkannt oder erstelle deine eigene.</p>
-
-  <div class="mp-section">
-    <div class="mp-section-title"><span class="dot dot-on"></span> Verfügbare Räume <span class="text-m" id="mpRoomCount" style="font-size:12px"></span></div>
-    <div id="mpRooms" class="room-list">
-      <div class="text-m" style="font-size:13px;padding:8px 0">Keine Räume verfügbar — erstelle einen Raum!</div>
+<div id="page-poker" class="page">
+  <p class="section-title">Texas Hold'em</p>
+  <div class="felt-wrap"><div class="felt" style="border-radius:120px">
+    <div style="text-align:center;margin:10px 0">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">POT</div>
+      <div style="font-size:24px;color:var(--gold);font-weight:bold" id="pkPot">0</div>
     </div>
-  </div>
+    <div id="pkSeats" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0"></div>
+    <div style="margin:10px 0;text-align:center;font-size:12px;color:var(--muted)">Community Cards</div>
+    <div class="cards-row" id="pkCommunity"></div>
+  </div></div>
+  <div id="pkActions" class="center mt1"></div>
+</div>
 
-  <div class="mp-section">
-    <div class="mp-section-title">Raum erstellen</div>
-    <div class="form-group">
-      <label class="form-lbl">Raumname</label>
-      <input class="form-input" id="mpRoomName" placeholder="z.B. Jackobs Casino">
+<div id="page-roulette" class="page">
+  <p class="section-title">Roulette</p>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+    <canvas id="rouletteCanvas" width="280" height="280"></canvas>
+    <div style="text-align:center">
+      <div style="font-size:14px;color:var(--muted);margin-bottom:4px">Ergebnis</div>
+      <div style="font-size:32px;color:var(--gold);font-weight:bold" id="rResult">—</div>
     </div>
-    <div class="row">
-      <button class="btn btn-gold" onclick="MP.createRoom()">Raum erstellen</button>
-    </div>
-    <div id="mpCreateStatus"></div>
-  </div>
-
-  <div class="mp-section">
-    <div class="mp-section-title">Mit Raumcode beitreten</div>
-    <div class="mp-form-row">
-      <input class="form-input" id="mpJoinCode" placeholder="Raumcode (4 Ziffern)…" style="flex:1;min-width:150px" maxlength="4" inputmode="numeric" pattern="[0-9]*">
-      <button class="btn btn-outline" onclick="MP.joinByCode()">Beitreten</button>
-    </div>
-    <div id="mpJoinStatus"></div>
-  </div>
-
-  <div class="mp-section" id="mpActiveSection" style="display:none">
-    <div class="mp-section-title" id="mpActiveTitle">Verbunden</div>
-    <div id="mpActiveInfo"></div>
-    <div class="row mt2">
-      <button class="btn btn-red btn-sm" onclick="MP.leave()">Verlassen</button>
+    <div class="chip-bar" id="rChipBar"></div>
+    <div class="row" style="justify-content:center">
+      <button class="btn btn-gold btn-lg" id="rouletteSpinBtn" onclick="Roulette.spin()">Drehen!</button>
+      <button class="btn btn-outline" onclick="Roulette.clearBets()">Leeren</button>
     </div>
   </div>
 </div>
-
-<div id="toastBox"></div>
 
 <script>
-// ============================================================
-//  UTILITIES
-// ============================================================
 const Store = {
   get(k, d = null) { try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 };
 
-function getBalance() { return Store.get('casino.bal', 250); }
-function setBalance(v) { Store.set('casino.bal', Math.max(0, Math.round(v))); refreshBalDisplay(); }
-function addBalance(n) { setBalance(getBalance() + n); }
-function spendBalance(n) { const b = getBalance(); if (b < n) return false; setBalance(b - n); return true; }
-function getPlayerName() { return Store.get('casino.name', 'Spieler'); }
-function setPlayerName(n) { Store.set('casino.name', n); refreshHub(); }
+let balance = Store.get('casino.bal', 250);
+let playerName = Store.get('casino.name', 'Spieler');
+let stats = Store.get('casino.stats', { bj:{w:0,l:0}, poker:{w:0,l:0}, roulette:{w:0,l:0} });
 
-function refreshBalDisplay() {
-  const b = getBalance();
-  const fmt = b.toLocaleString('de-CH');
-  const el = document.getElementById('navBal'); if (el) el.textContent = 'CHF ' + fmt;
-  const el2 = document.getElementById('hubBal'); if (el2) el2.textContent = fmt;
-  updateStats();
+function save() {
+  Store.set('casino.bal', balance);
+  Store.set('casino.name', playerName);
+  Store.set('casino.stats', stats);
+  updateDisplay();
 }
 
-function getStats() { return Store.get('casino.stats', { bj:{w:0,l:0,net:0} }); }
-function addStat(game, win, net) {
-  const s = getStats();
-  if (!s[game]) s[game] = {w:0,l:0,net:0};
-  if (win) s[game].w++; else s[game].l++;
-  s[game].net += net;
-  Store.set('casino.stats', s);
-  updateStats();
-}
-
-function updateStats() {
-  const el = document.getElementById('hubStats'); if (!el) return;
-  const s = getStats(); const total = Object.values(s).reduce((a,g)=>({w:a.w+g.w,l:a.l+g.l,net:a.net+g.net}),{w:0,l:0,net:0});
-  el.innerHTML = `
-    <div class="stat-card"><div class="stat-val">${getBalance().toLocaleString('de-CH')}</div><div class="stat-lbl">CHF Guthaben</div></div>
+function updateDisplay() {
+  const fmt = balance.toLocaleString('de-CH');
+  document.getElementById('navBal').textContent = 'CHF ' + fmt;
+  document.getElementById('hubBal').textContent = fmt;
+  document.getElementById('hubName').textContent = playerName;
+  document.getElementById('hubAvatar').textContent = playerName.slice(0,2).toUpperCase();
+  
+  const total = Object.values(stats).reduce((a,g)=>({w:a.w+g.w,l:a.l+g.l}),{w:0,l:0});
+  document.getElementById('hubStats').innerHTML = `
+    <div class="stat-card"><div class="stat-val">${fmt}</div><div class="stat-lbl">CHF</div></div>
     <div class="stat-card"><div class="stat-val">${total.w}</div><div class="stat-lbl">Siege</div></div>
-    <div class="stat-card"><div class="stat-val">${total.l}</div><div class="stat-lbl">Niederlagen</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:${total.net>=0?'#27ae60':'#e74c3c'}">${total.net>=0?'+':''}${total.net}</div><div class="stat-lbl">Netto</div></div>`;
-}
-
-function toast(msg, type = 'info') {
-  const box = document.getElementById('toastBox');
-  const t = document.createElement('div');
-  t.className = `toast toast-${type}`;
-  t.textContent = msg;
-  box.appendChild(t);
-  requestAnimationFrame(() => { requestAnimationFrame(() => { t.classList.add('show'); }); });
-  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
+    <div class="stat-card"><div class="stat-val">${total.l}</div><div class="stat-lbl">Verluste</div></div>`;
 }
 
 function nav(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  const pg = document.getElementById('page-' + id); if (pg) pg.classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t => { if (t.dataset.page === id) t.classList.add('active'); });
-  if (id === 'hub') refreshHub();
-  if (id === 'bj') BJ.reset();
-  if (id === 'mp') MP.init();
-}
-
-function refreshHub() {
-  const name = getPlayerName();
-  const el = document.getElementById('hubName'); if (el) el.textContent = name;
-  const av = document.getElementById('hubAvatar'); if (av) av.textContent = name.slice(0,2).toUpperCase();
-  updateStats();
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelector(`[data-page="${id}"]`).classList.add('active');
+  if (id === 'bj') BJ.init();
+  if (id === 'poker') Poker.init();
+  if (id === 'roulette') Roulette.init();
 }
 
 function editName() {
-  const n = prompt('Dein Name:', getPlayerName());
-  if (n && n.trim()) { setPlayerName(n.trim()); toast('Name gespeichert', 'ok'); }
+  const n = prompt('Dein Name:', playerName);
+  if (n && n.trim()) { playerName = n.trim(); save(); }
 }
 
-// ============================================================
-//  CARD HELPERS
-// ============================================================
 function buildDeck(n = 6) {
   const R = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
   const S = ['♠','♥','♦','♣'];
@@ -363,334 +233,199 @@ function buildDeck(n = 6) {
 function shuffle(a) { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 function draw(deck) { if (deck.length < 10) deck.push(...buildDeck(1)); return deck.pop(); }
 
-function cardHtml(c, mini = false) {
-  if (!c) return `<div class="card ghost${mini?' mini':''}"></div>`;
+function cardHtml(c) {
+  if (!c) return `<div class="card ghost"></div>`;
   const red = ['♥','♦'].includes(c.s);
-  return `<div class="card ${red?'red':'black'}">
-    <div class="top"><span class="r">${c.r}</span><span class="s">${c.s}</span></div>
-    <div class="mid">${c.s}</div>
-    <div class="bot"><span class="r">${c.r}</span><span class="s">${c.s}</span></div>
-  </div>`;
+  return `<div class="card ${red?'red':'black'}"><div>${c.r}</div><div>${c.s}</div><div>${c.r}</div></div>`;
 }
-function cardBack() { return `<div class="card back"></div>`; }
 
-function cardVal(c) {
-  if (c.r==='A') return 11;
-  if (['J','Q','K'].includes(c.r)) return 10;
-  return parseInt(c.r);
-}
+function cardVal(c) { return c.r==='A'?11:['J','Q','K'].includes(c.r)?10:parseInt(c.r); }
 function handVal(h) {
   let v = h.reduce((s,c)=>s+cardVal(c),0), a = h.filter(c=>c.r==='A').length;
   while (v>21 && a>0){v-=10;a--;}
   return v;
 }
-function isBlackjack(h) { return h.length===2 && handVal(h)===21; }
 
-// ============================================================
-//  BLACKJACK
-// ============================================================
 const BJ = {
-  deck:[], hands:[[]], dealer:[], bets:[0], pending:0, chip:10, active:0, phase:'idle', rev:false,
-
-  reset() {
+  deck:[], hand:[], dealer:[], bet:0, phase:'bet',
+  
+  init() {
     this.deck = buildDeck(6);
+    this.hand = [];
+    this.dealer = [];
+    this.bet = 0;
     this.phase = 'bet';
-    this.hands = [[]]; this.dealer = []; this.bets = [0]; this.pending = 0; this.active = 0; this.rev = false;
     this.render();
   },
-
+  
   addBet(v) {
-    if (this.phase!=='bet') return;
-    if (this.pending+v > getBalance()){toast('Nicht genug Guthaben!','err');return;}
-    this.pending += v; this.render();
+    if (this.bet + v > balance) return;
+    this.bet += v;
+    this.render();
   },
-  clearBet() { this.pending=0; this.render(); },
-
+  
   deal() {
-    if (this.phase!=='bet'){return;}
-    if (this.pending<1){toast('Wette zuerst!','err');return;}
-    if (!spendBalance(this.pending)){toast('Nicht genug Guthaben!','err');return;}
-    this.bets=[this.pending]; this.pending=0;
-    this.hands=[[draw(this.deck),draw(this.deck)]];
-    this.dealer=[draw(this.deck),draw(this.deck)];
-    this.phase='play'; this.active=0; this.rev=false;
-    const pBJ=isBlackjack(this.hands[0]), dBJ=isBlackjack(this.dealer);
-    if (pBJ||dBJ) { this.rev=true; this.phase='done';
-      if (pBJ&&dBJ) { addBalance(this.bets[0]); this.showRes('push','Push — Unentschieden',0); }
-      else if (pBJ) { const w=Math.floor(this.bets[0]*2.5); addBalance(w); this.showRes('win','Blackjack!',w-this.bets[0]); }
-      else { this.showRes('lose','Dealer Blackjack',-this.bets[0]); }
-    }
+    if (this.bet === 0) return;
+    balance -= this.bet;
+    this.hand = [draw(this.deck), draw(this.deck)];
+    this.dealer = [draw(this.deck), draw(this.deck)];
+    this.phase = 'play';
     this.render();
+    if (handVal(this.hand) === 21) {
+      balance += Math.floor(this.bet * 2.5);
+      this.end('Blackjack!', 'win');
+    }
   },
-
+  
   hit() {
-    if (this.phase!=='play') return;
-    this.hands[this.active].push(draw(this.deck));
-    if (handVal(this.hands[this.active])>21) this.nextHand();
+    this.hand.push(draw(this.deck));
     this.render();
+    if (handVal(this.hand) > 21) this.dealerTurn();
   },
-
-  stand() { if (this.phase!=='play') return; this.nextHand(); },
-
-  nextHand() {
-    if (this.active<this.hands.length-1){this.active++; this.render();}
-    else this.dealerTurn();
-  },
-
-  double() {
-    if (this.phase!=='play') return;
-    const h=this.hands[this.active]; if (h.length!==2) return;
-    if (!spendBalance(this.bets[this.active])){toast('Nicht genug Guthaben!','err');return;}
-    this.bets[this.active]*=2;
-    h.push(draw(this.deck));
-    if (handVal(h)>21) this.nextHand(); else this.stand();
-    this.render();
-  },
-
-  split() {
-    if (this.phase!=='play') return;
-    const h=this.hands[this.active]; if (h.length!==2) return;
-    if (cardVal(h[0])!==cardVal(h[1])) return;
-    if (!spendBalance(this.bets[this.active])){toast('Nicht genug Guthaben!','err');return;}
-    const c2=h.pop();
-    this.hands.splice(this.active+1,0,[c2]);
-    this.bets.splice(this.active+1,0,this.bets[this.active]);
-    h.push(draw(this.deck));
-    this.hands[this.active+1].push(draw(this.deck));
-    this.render();
-  },
-
+  
+  stand() { this.dealerTurn(); },
+  
   dealerTurn() {
-    this.phase='dealer'; this.rev=true; this.render();
-    setTimeout(()=>{
-      while (handVal(this.dealer)<17) this.dealer.push(draw(this.deck));
-      this.settle();
-    },700);
-  },
-
-  settle() {
-    this.phase='done';
-    const dv=handVal(this.dealer), dBust=dv>21;
-    let net=0;
-    for (let i=0;i<this.hands.length;i++){
-      const pv=handVal(this.hands[i]), bust=pv>21, bet=this.bets[i];
-      if (!bust){
-        if (dBust||pv>dv){addBalance(bet*2);net+=bet;}
-        else if (pv===dv){addBalance(bet);}
-        else{net-=bet;}
-      } else {net-=bet;}
-    }
-    if (net>0) this.showRes('win',`Gewonnen! +${net} CHF`,net);
-    else if (net===0) this.showRes('push','Unentschieden',0);
-    else this.showRes('lose',`Verloren — ${Math.abs(net)} CHF`,net);
-    addStat('bj',net>0,net);
+    this.phase = 'dealer';
     this.render();
+    setTimeout(() => {
+      while (handVal(this.dealer) < 17) this.dealer.push(draw(this.deck));
+      const dv = handVal(this.dealer), pv = handVal(this.hand);
+      let msg = '', cls = '';
+      if (pv > 21) { msg = 'Bust!'; cls = 'lose'; }
+      else if (dv > 21) { msg = 'Dealer Bust!'; cls = 'win'; balance += this.bet * 2; }
+      else if (pv > dv) { msg = 'Du gewinnst!'; cls = 'win'; balance += this.bet * 2; }
+      else if (pv === dv) { msg = 'Push'; cls = 'push'; balance += this.bet; }
+      else { msg = 'Dealer gewinnt'; cls = 'lose'; }
+      if (cls === 'win') stats.bj.w++; else if (cls === 'lose') stats.bj.l++;
+      this.end(msg, cls);
+    }, 800);
   },
-
-  showRes(type,msg,net) {
-    const el=document.getElementById('bjResult'); if(!el)return;
-    el.className=`bj-result ${type}`; el.textContent=msg; el.style.display='block';
+  
+  end(msg, cls) {
+    this.phase = 'done';
+    document.getElementById('bjResult').className = 'bj-result ' + cls;
+    document.getElementById('bjResult').textContent = msg;
+    document.getElementById('bjResult').style.display = 'block';
+    save();
   },
-
+  
   render() {
-    const pEl=document.getElementById('bjPlayer'), dEl=document.getElementById('bjDealer');
-    const pSc=document.getElementById('bjPScore'), dSc=document.getElementById('bjDScore');
-    const ctrl=document.getElementById('bjControls'), betAmt=document.getElementById('bjBetAmt');
-    const res=document.getElementById('bjResult');
-    if(!pEl)return;
-    if(res&&this.phase!=='done') res.style.display='none';
-
-    // Dealer
-    if(this.dealer.length){
-      dEl.innerHTML=this.dealer.map((c,i)=>(i===1&&!this.rev)?cardBack():cardHtml(c)).join('');
-      dSc.textContent=this.rev?handVal(this.dealer):(cardVal(this.dealer[0])+'+?');
-    } else {dEl.innerHTML='';dSc.textContent='';}
-
-    // Player (split support)
-    if(this.hands.length>1){
-      pEl.innerHTML=this.hands.map((h,i)=>`
-        <div style="text-align:center;margin:0 4px">
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:3px">Hand ${i+1}${i===this.active&&this.phase==='play'?' ▶':''}</div>
-          <div class="cards-row" style="justify-content:center">${h.map(c=>cardHtml(c)).join('')}</div>
-          <div style="font-size:13px;color:#fff;margin-top:4px">${handVal(h)}${handVal(h)>21?' 💀':''}</div>
-        </div>`).join('');
-      pSc.textContent='';
-    } else {
-      pEl.innerHTML=this.hands[0]?this.hands[0].map(c=>cardHtml(c)).join(''):'';
-      pSc.textContent=this.hands[0]?.length?(handVal(this.hands[0])+(handVal(this.hands[0])>21?' 💀':'')):'';
-    }
-
-    if(betAmt) betAmt.textContent=(this.phase==='bet'?this.pending:this.bets.reduce((s,b)=>s+b,0));
-
-    if(!ctrl)return;
-    const h=this.hands[this.active];
-    const canSplit=h?.length===2&&cardVal(h[0])===cardVal(h[1])&&this.hands.length<4;
-
-    if(this.phase==='bet'){
-      ctrl.innerHTML=`
-        <div class="chip-bar" style="justify-content:center;margin-bottom:14px" id="bjChips">
-          ${[5,10,25,100].map(v=>`<div class="chip ch-${v}${this.chip===v?' sel':''}" onclick="BJ.chip=${v};BJ.render()">${v}</div>`).join('')}
-        </div>
+    document.getElementById('bjDealer').innerHTML = this.dealer.map(c => cardHtml(c)).join('');
+    document.getElementById('bjDScore').textContent = this.phase !== 'done' && this.dealer.length > 1 ? cardVal(this.dealer[0]) + '+?' : handVal(this.dealer);
+    document.getElementById('bjPlayer').innerHTML = this.hand.map(c => cardHtml(c)).join('');
+    document.getElementById('bjPScore').textContent = handVal(this.hand);
+    document.getElementById('bjBet').textContent = this.bet;
+    
+    if (this.phase === 'bet') {
+      document.getElementById('bjControls').innerHTML = `
+        <div class="chip-bar">${[5,10,25,100].map(v=>`<div class="chip ch-${v}" onclick="BJ.addBet(${v})">${v}</div>`).join('')}</div>
         <div class="row" style="justify-content:center">
-          <button class="btn btn-outline btn-sm" onclick="BJ.addBet(BJ.chip)">+${this.chip}</button>
-          <button class="btn btn-outline btn-sm" onclick="BJ.clearBet()">Leeren</button>
-          <button class="btn btn-green btn-lg" onclick="BJ.deal()" ${this.pending<1?'disabled':''}>Karten geben</button>
+          <button class="btn btn-outline" onclick="BJ.bet=0;BJ.render()">Leeren</button>
+          <button class="btn btn-green btn-lg" onclick="BJ.deal()" ${this.bet===0?'disabled':''}>Karten geben</button>
         </div>`;
-    } else if(this.phase==='play'){
-      ctrl.innerHTML=`<div class="row" style="justify-content:center">
+    } else if (this.phase === 'play') {
+      document.getElementById('bjControls').innerHTML = `<div class="row" style="justify-content:center">
         <button class="btn btn-green" onclick="BJ.hit()">Hit</button>
         <button class="btn btn-outline" onclick="BJ.stand()">Stand</button>
-        ${h?.length===2?`<button class="btn btn-gold" onclick="BJ.double()">Double</button>`:''}
-        ${canSplit?`<button class="btn btn-outline" onclick="BJ.split()">Split</button>`:''}
       </div>`;
-    } else if(this.phase==='done'){
-      ctrl.innerHTML=`<div class="center mt2"><button class="btn btn-gold btn-lg" onclick="BJ.reset()">Neue Runde</button></div>`;
-    } else {
-      ctrl.innerHTML=`<div class="center text-m mt1">Dealer zieht Karten…</div>`;
+    } else if (this.phase === 'done') {
+      document.getElementById('bjControls').innerHTML = `<button class="btn btn-gold btn-lg" onclick="BJ.init()">Neue Runde</button>`;
     }
   }
 };
 
-// ============================================================
-//  MULTIPLAYER
-// ============================================================
-let peer=null, isHost=false, myId=null, roomCode=null;
-let connectedRooms = [];
-
-const MP = {
-  rooms: [],
-  active: null,
-
+const Poker = {
   init() {
-    this.loadRooms();
-    this.renderRooms();
-  },
-
-  loadRooms() {
-    this.rooms = Store.get('casino.rooms', []);
-  },
-
-  saveRooms() {
-    Store.set('casino.rooms', this.rooms);
-  },
-
-  createRoom() {
-    const name = document.getElementById('mpRoomName')?.value?.trim();
-    if (!name) { toast('Gib einen Raumnamen ein!', 'err'); return; }
-    const code = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
-    const room = { code, name, owner: getPlayerName(), players: [getPlayerName()], created: new Date().getTime() };
-    this.rooms.push(room);
-    this.saveRooms();
-    this.active = room;
-    document.getElementById('mpRoomName').value = '';
-    toast(`Raum erstellt! Code: ${code}`, 'ok');
-    this.renderActive();
-  },
-
-  joinByCode() {
-    const code = document.getElementById('mpJoinCode')?.value?.trim();
-    if (!code || code.length !== 4) { toast('Gib einen 4-stelligen Code ein!', 'err'); return; }
-    const room = this.rooms.find(r => r.code === code);
-    if (!room) { toast('Raum nicht gefunden!', 'err'); return; }
-    if (!room.players.includes(getPlayerName())) {
-      room.players.push(getPlayerName());
-      this.saveRooms();
-    }
-    this.active = room;
-    document.getElementById('mpJoinCode').value = '';
-    toast(`Beigetreten: ${room.name}`, 'ok');
-    this.renderActive();
-  },
-
-  leave() {
-    if (this.active) {
-      if (this.active.owner === getPlayerName()) {
-        this.rooms = this.rooms.filter(r => r.code !== this.active.code);
-      } else {
-        this.active.players = this.active.players.filter(p => p !== getPlayerName());
-      }
-      this.saveRooms();
-      this.active = null;
-      toast('Raum verlassen', 'info');
-      this.renderRooms();
-    }
-  },
-
-  renderRooms() {
-    this.loadRooms();
-    const container = document.getElementById('mpRooms');
-    const count = document.getElementById('mpRoomCount');
-    const active = document.getElementById('mpActiveSection');
-    if(!container) return;
-    
-    if(this.active) {
-      active.style.display = 'block';
-      this.renderActive();
-      return;
-    }
-    active.style.display = 'none';
-
-    if (this.rooms.length === 0) {
-      container.innerHTML = '<div class="text-m" style="font-size:13px;padding:8px 0">Keine Räume verfügbar — erstelle einen Raum!</div>';
-      count.textContent = '(0)';
-      return;
-    }
-    count.textContent = `(${this.rooms.length})`;
-    container.innerHTML = this.rooms.map(r => `
-      <div class="room-item">
-        <div>
-          <div class="room-name">${r.name}</div>
-          <div class="room-meta">${r.players.length} Spieler · Inhaber: ${r.owner}</div>
-          <div style="margin-top:4px"><span class="room-code">${r.code}</span></div>
-        </div>
-        <div style="margin-left:auto;display:flex;gap:8px">
-          <button class="btn btn-outline btn-sm" onclick="MP.joinRoom('${r.code}')">Beitreten</button>
-        </div>
-      </div>
-    `).join('');
-  },
-
-  joinRoom(code) {
-    const room = this.rooms.find(r => r.code === code);
-    if (room && !room.players.includes(getPlayerName())) {
-      room.players.push(getPlayerName());
-      this.saveRooms();
-    }
-    this.active = room;
-    this.renderActive();
-  },
-
-  renderActive() {
-    const section = document.getElementById('mpActiveSection');
-    const rooms = document.getElementById('mpRooms');
-    if(!section) return;
-    
-    if(this.active) {
-      section.style.display = 'block';
-      rooms.style.display = 'none';
-      const title = document.getElementById('mpActiveTitle');
-      const info = document.getElementById('mpActiveInfo');
-      if(title) title.textContent = `Verbunden: ${this.active.name}`;
-      if(info) info.innerHTML = `
-        <div style="background:rgba(201,168,76,.08);padding:12px;border-radius:8px;margin-bottom:12px">
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Raumcode</div>
-          <div style="font-family:'Courier Prime',monospace;font-size:1.4rem;color:var(--gold);font-weight:700;letter-spacing:.2em">${this.active.code}</div>
-        </div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Spieler (${this.active.players.length})</div>
-          ${this.active.players.map(p => `<div style="padding:4px 8px;background:rgba(201,168,76,.06);border-radius:4px;margin-bottom:4px;font-size:13px">${p}${p===this.active.owner?' (Inhaber)':''}</div>`).join('')}
-        </div>
-      `;
-    } else {
-      section.style.display = 'none';
-      rooms.style.display = 'block';
-      this.renderRooms();
-    }
+    document.getElementById('pkPot').textContent = '0';
+    document.getElementById('pkSeats').innerHTML = '<div style="color:var(--muted)">Poker wird entwickelt...</div>';
+    document.getElementById('pkCommunity').innerHTML = '';
+    document.getElementById('pkActions').innerHTML = '';
   }
 };
 
-// Initialize
-refreshBalDisplay();
+const Roulette = {
+  wheel: [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26],
+  bets: {},
+  spinning: false,
+  angle: 0,
+  
+  init() {
+    this.bets = {};
+    this.drawWheel();
+    this.renderChips();
+    this.renderBets();
+  },
+  
+  drawWheel() {
+    const c = document.getElementById('rouletteCanvas');
+    const ctx = c.getContext('2d');
+    const r = 130;
+    ctx.clearRect(0, 0, c.width, c.height);
+    this.wheel.forEach((num, i) => {
+      const angle = (i / this.wheel.length) * Math.PI * 2 + this.angle;
+      const x = 140 + Math.cos(angle) * r;
+      const y = 140 + Math.sin(angle) * r;
+      ctx.fillStyle = num === 0 ? '#27ae60' : num % 2 === 0 ? '#000' : '#f00';
+      ctx.beginPath();
+      ctx.arc(x, y, 15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 10px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(num, x, y);
+    });
+  },
+  
+  renderChips() {
+    document.getElementById('rChipBar').innerHTML = [10,25,50,100].map(v=>
+      `<div class="chip ch-${v}" onclick="Roulette.bet(${v})">${v}</div>`
+    ).join('');
+  },
+  
+  bet(v) {
+    if (balance < v) return;
+    this.bets[v] = (this.bets[v] || 0) + 1;
+    balance -= v;
+    this.renderBets();
+    save();
+  },
+  
+  renderBets() {
+    const total = Object.entries(this.bets).reduce((s,[k,v])=>s+parseInt(k)*v, 0);
+    document.getElementById('rouletteSpinBtn').disabled = total === 0;
+  },
+  
+  spin() {
+    if (this.spinning || Object.keys(this.bets).length === 0) return;
+    this.spinning = true;
+    let spins = 0;
+    const interval = setInterval(() => {
+      this.angle += 0.3;
+      this.drawWheel();
+      if (++spins > 100) {
+        clearInterval(interval);
+        this.spinning = false;
+        const winning = this.wheel[Math.floor(Math.random() * this.wheel.length)];
+        document.getElementById('rResult').textContent = winning;
+        balance += Object.entries(this.bets).reduce((s,[k,v])=>s + (Math.random()>0.9?parseInt(k)*v*36:0), 0);
+        this.bets = {};
+        this.renderBets();
+        save();
+      }
+    }, 20);
+  },
+  
+  clearBets() {
+    Object.keys(this.bets).forEach(k => balance += parseInt(k) * this.bets[k]);
+    this.bets = {};
+    this.renderBets();
+    save();
+  }
+};
+
+updateDisplay();
 </script>
 </body>
 </html>
